@@ -78,6 +78,8 @@ function populateQuestions(category) {
   });
 }
 
+
+
 // Event handlers for category buttons
 startGeo.on("click", function() {
   startQuiz();
