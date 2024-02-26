@@ -8,6 +8,7 @@ function QuestionScreen({ topic }) {
   const [score, setScore] = useState(0);
   const [hasScoreUpdated, setHasScoreUpdated] = useState(false);
   const [triggerNextQuestion, setTriggerNextQuestion] = useState(false);
+  const [showRound, setShowRound] = useState(true);
   const questions = questionsData[topic];
 
   // Timer countdown logic
@@ -21,10 +22,21 @@ function QuestionScreen({ topic }) {
     }
 
     if (timer === 0) {
-      console.log('Timer reached zero, setting trigger for next question...');
       setTriggerNextQuestion(true);
     }
   }, [timer, selectedAnswer]);
+
+  // Show round information for 2 seconds before showing the question
+  useEffect(() => {
+    if (showRound) {
+      const timer = setTimeout(() => {
+        setShowRound(false);
+        setTimer(10);
+      }, 2000); // Show round info for 2 seconds
+
+      return () => clearTimeout(timer);
+    }
+  }, [showRound, currentQuestionIndex]);
 
   // Handle scoring and setting trigger for the next question
   useEffect(() => {
@@ -35,27 +47,28 @@ function QuestionScreen({ topic }) {
 
       const timeoutId = setTimeout(() => {
         setTriggerNextQuestion(true);
-        setHasScoreUpdated(true); // Update the flag here after the timeout
+        setHasScoreUpdated(true);
       }, 1000);
 
       return () => clearTimeout(timeoutId);
     }
   }, [selectedAnswer, hasScoreUpdated, currentQuestionIndex, questions, timer]);
-  
+
   // Handle the transition to the next question
   useEffect(() => {
-    if (triggerNextQuestion) {
+    if (triggerNextQuestion && !showRound) {
       handleNextQuestion();
     }
-  }, [triggerNextQuestion]);
+  }, [triggerNextQuestion, showRound]);
 
   const handleNextQuestion = () => {
     if (currentQuestionIndex < questions.length - 1) {
+      setShowRound(true);
       setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
       setTimer(10);
       setSelectedAnswer(null);
       setHasScoreUpdated(false);
-      setTriggerNextQuestion(false);  // Resetting the trigger here.
+      setTriggerNextQuestion(false);
     } else {
       alert(`Quiz finished! Your score: ${score}`);
     }
@@ -63,16 +76,22 @@ function QuestionScreen({ topic }) {
 
   return (
     <div>
-      <h2>{questions[currentQuestionIndex].title}</h2>
-      <div>{timer} seconds left</div>
-      <div>
-        {questions[currentQuestionIndex].choices.map((choice, index) => (
-          <button key={index} onClick={() => setSelectedAnswer(choice)}>
-            {choice}
-          </button>
-        ))}
-      </div>
-      <div>Your score: {score}</div>
+      {showRound ? (
+        <div>Round {currentQuestionIndex + 1}</div>
+      ) : (
+        <>
+          <h2>{questions[currentQuestionIndex].title}</h2>
+          <div>{timer} seconds left</div>
+          <div>
+            {questions[currentQuestionIndex].choices.map((choice, index) => (
+              <button key={index} onClick={() => setSelectedAnswer(choice)}>
+                {choice}
+              </button>
+            ))}
+          </div>
+          <div>Your score: {score}</div>
+        </>
+      )}
     </div>
   );
 }
