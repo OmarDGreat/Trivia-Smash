@@ -1,45 +1,78 @@
 import React, { useState, useEffect } from "react";
-import questionsData from "../Models/questionsData"; // Adjust the path based on your file structure
+import questionsData from "../Models/questionsData";
 
 function QuestionScreen({ topic }) {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
-  const [timer, setTimer] = useState(10); // Adjust time as needed
+  const [timer, setTimer] = useState(10);
   const [score, setScore] = useState(0);
+  const [hasScoreUpdated, setHasScoreUpdated] = useState(false);
+  const [triggerNextQuestion, setTriggerNextQuestion] = useState(false);
   const questions = questionsData[topic];
 
+  // Timer countdown logic
   useEffect(() => {
-    if (timer > 0) {
-      const interval = setInterval(() => {
-        setTimer(timer - 1);
+    console.log(`Timer: ${timer}, Selected Answer: ${selectedAnswer}`);
+    if (timer > 0 && !selectedAnswer) {
+      const intervalId = setInterval(() => {
+        setTimer((prevTimer) => prevTimer - 1);
       }, 1000);
 
-      return () => clearInterval(interval);
-    } else {
-      // Move to the next question or handle end of quiz when time runs out
+      return () => clearInterval(intervalId);
+    }
+
+    if (timer === 0) {
+      console.log('Timer reached zero, setting trigger for next question...');
+      setTriggerNextQuestion(true);
+    }
+  }, [timer, selectedAnswer]);
+
+  // Handle scoring and setting trigger for the next question
+  useEffect(() => {
+    if (selectedAnswer && !hasScoreUpdated) {
+      console.log(`Answer selected: ${selectedAnswer}`);
+      if (selectedAnswer === questions[currentQuestionIndex].answer) {
+        setScore((prevScore) => prevScore + timer * 100);
+        console.log(`Score updated to: ${score + timer * 100}`);
+      }
+  
+      console.log('Setting timeout to move to next question...');
+      const timeoutId = setTimeout(() => {
+        console.log('Timeout completed, setting trigger for next question...');
+        setTriggerNextQuestion(true);
+        setHasScoreUpdated(true); // Update the flag here after the timeout
+      }, 1000);
+  
+      return () => {
+        console.log('Clearing timeout...');
+        clearTimeout(timeoutId);
+      };
+    }
+  }, [selectedAnswer, hasScoreUpdated, currentQuestionIndex, questions, timer]);
+  
+  
+  // Handle the transition to the next question
+  useEffect(() => {
+    console.log('Effect for triggering next question', triggerNextQuestion);
+    if (triggerNextQuestion) {
+      console.log('Trigger received, calling handleNextQuestion...');
       handleNextQuestion();
     }
-  }, [timer]);
+  }, [triggerNextQuestion]);
 
   const handleNextQuestion = () => {
+    console.log('handleNextQuestion called');
     if (currentQuestionIndex < questions.length - 1) {
-      setCurrentQuestionIndex(currentQuestionIndex + 1);
-      setTimer(10); // Reset timer for the next question
+      setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
+      setTimer(10);
+      setSelectedAnswer(null);
+      setHasScoreUpdated(false);
+      setTriggerNextQuestion(false);  // Resetting the trigger here.
     } else {
-      // Handle end of quiz, such as showing results or resetting the quiz
+      console.log('Quiz finished, showing score...');
       alert(`Quiz finished! Your score: ${score}`);
     }
-    setSelectedAnswer(null);
   };
-
-  useEffect(() => {
-    if (selectedAnswer) {
-      if (selectedAnswer === questions[currentQuestionIndex].answer) {
-        setScore(score + timer * 100); // Update score based on remaining time
-      }
-      setTimeout(handleNextQuestion, 1000); // Move to the next question after a delay
-    }
-  }, [selectedAnswer, currentQuestionIndex, questions, score, timer]);
 
   return (
     <div>
