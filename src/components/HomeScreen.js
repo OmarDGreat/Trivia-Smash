@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { joinQueue } from '../services/queueService'; // Adjust the path as necessary
 
 function HomeScreen({ onSelectTopic, isAuthenticated }) {
   const [email, setEmail] = useState('');
@@ -37,6 +38,22 @@ function HomeScreen({ onSelectTopic, isAuthenticated }) {
     }
   };
 
+  const handleTopicSelection = async (topic) => {
+    if (!isAuthenticated) {
+      alert('You need to be logged in to join a queue!');
+      return;
+    }
+
+    try {
+      const userId = auth.currentUser.uid;
+      await joinQueue(userId, topic);
+      onSelectTopic(topic); // Assuming this function handles the logic after selecting a topic
+    } catch (error) {
+      console.error('Error joining queue:', error);
+      alert('Failed to join queue: ' + error.message);
+    }
+  };
+
   return (
     <div>
       <h1>Home</h1>
@@ -51,11 +68,11 @@ function HomeScreen({ onSelectTopic, isAuthenticated }) {
         <>
           <button onClick={handleSignOut}>Sign Out</button>
           <div>
-            <button onClick={() => onSelectTopic("geography")}>Geography</button>
-            <button onClick={() => onSelectTopic("math")}>Math</button>
-            <button onClick={() => onSelectTopic("english")}>English</button>
-            <button onClick={() => onSelectTopic("history")}>History</button>
-            <button onClick={() => onSelectTopic("music")}>Music</button>
+            <button onClick={() => handleTopicSelection("geography")}>Geography</button>
+            <button onClick={() => handleTopicSelection("math")}>Math</button>
+            <button onClick={() => handleTopicSelection("english")}>English</button>
+            <button onClick={() => handleTopicSelection("history")}>History</button>
+            <button onClick={() => handleTopicSelection("music")}>Music</button>
           </div>
         </>
       )}
