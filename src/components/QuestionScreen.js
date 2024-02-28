@@ -1,97 +1,109 @@
 import React, { useState, useEffect } from "react";
+import { db } from "../firebase-config";
+import { doc, onSnapshot, updateDoc } from "firebase/firestore";
 import questionsData from "../Models/questionsData";
 
-function QuestionScreen({ topic }) {
+function QuestionScreen({ sessionID, userID }) {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
-  const [timer, setTimer] = useState(10);
-  const [score, setScore] = useState(0);
-  const [hasScoreUpdated, setHasScoreUpdated] = useState(false);
-  const [triggerNextQuestion, setTriggerNextQuestion] = useState(false);
-  const [showRound, setShowRound] = useState(true);
-  const questions = questionsData[topic];
+  const [timer, setTimer] = useState(10); // Initial timer value will be updated from Firestore
+  const [playerScore, setPlayerScore] = useState(0);
+  const [opponentScore, setOpponentScore] = useState(0);
+  const [opponentName, setOpponentName] = useState("");
+  const [questions, setQuestions] = useState([]);
 
-  // Timer countdown logic
   useEffect(() => {
-    if (timer > 0 && !selectedAnswer) {
-      const intervalId = setInterval(() => {
-        setTimer((prevTimer) => prevTimer - 1);
-      }, 1000);
-
-      return () => clearInterval(intervalId);
+    if (!sessionID) {
+      console.error("sessionID is undefined");
+      return;
     }
 
-    if (timer === 0) {
-      setTriggerNextQuestion(true);
+    const sessionRef = doc(db, "game_sessions", sessionID);
+
+    const unsub = onSnapshot(sessionRef, (doc) => {
+      const data = doc.data();
+
+      if (!data) {
+        console.error("Document is undefined or does not exist.");
+        return;
+      }
+
+      if (data.timer !== undefined) {
+        setTimer(data.timer); // Update the timer from Firestore
+      }
+
+      if (!data.players || !data.players[userID]) {
+        console.error("Invalid data structure received from Firestore", data);
+        return;
+      }
+
+      setPlayerScore(data.players[userID].score || 0);
+      setQuestions(questionsData[data.topic] || []);
+
+      const opponentID = Object.keys(data.players).find((id) => id !== userID);
+      if (opponentID) {
+        setOpponentScore(data.players[opponentID].score || 0);
+        setOpponentName(data.players[opponentID].name || "Unknown");
+      }
+
+      setCurrentQuestionIndex(
+        data.currentQuestionIndex >= 0 ? data.currentQuestionIndex : 0
+      );
+    });
+
+    return () => unsub();
+  }, [sessionID, userID]);
+
+  useEffect(() => {
+    if (timer === 0 || selectedAnswer) {
+      handleAnswer();
     }
   }, [timer, selectedAnswer]);
 
-  // Show round information for 2 seconds before showing the question
-  useEffect(() => {
-    if (showRound) {
-      const timer = setTimeout(() => {
-        setShowRound(false);
-        setTimer(10);
-      }, 2000); // Show round info for 2 seconds
-
-      return () => clearTimeout(timer);
+  const handleAnswer = async () => {
+    if (!sessionID) {
+      console.error("sessionID is undefined");
+      return;
     }
-  }, [showRound, currentQuestionIndex]);
 
-  // Handle scoring and setting trigger for the next question
-  useEffect(() => {
-    if (selectedAnswer && !hasScoreUpdated) {
-      if (selectedAnswer === questions[currentQuestionIndex].answer) {
-        setScore((prevScore) => prevScore + timer * 100);
-      }
+    const sessionRef = doc(db, "game_sessions", sessionID);
 
-      const timeoutId = setTimeout(() => {
-        setTriggerNextQuestion(true);
-        setHasScoreUpdated(true);
-      }, 1000);
-
-      return () => clearTimeout(timeoutId);
+    let newScore = playerScore;
+    if (
+      selectedAnswer &&
+      questions[currentQuestionIndex] &&
+      selectedAnswer === questions[currentQuestionIndex].correctAnswer
+    ) {
+      newScore += 10; // Increment score, for example
     }
-  }, [selectedAnswer, hasScoreUpdated, currentQuestionIndex, questions, timer]);
 
-  // Handle the transition to the next question
-  useEffect(() => {
-    if (triggerNextQuestion && !showRound) {
-      handleNextQuestion();
-    }
-  }, [triggerNextQuestion, showRound]);
+    await updateDoc(sessionRef, {
+      [`players.${userID}.score`]: newScore,
+      [`players.${userID}.answered`]: true,
+    });
 
-  const handleNextQuestion = () => {
-    if (currentQuestionIndex < questions.length - 1) {
-      setShowRound(true);
-      setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
-      setTimer(10);
-      setSelectedAnswer(null);
-      setHasScoreUpdated(false);
-      setTriggerNextQuestion(false);
-    } else {
-      alert(`Quiz finished! Your score: ${score}`);
-    }
+    setSelectedAnswer(null);
+    // Do not reset the timer here; it should only be controlled by the backend
   };
 
   return (
     <div>
-      {showRound ? (
-        <div>Round {currentQuestionIndex + 1}</div>
-      ) : (
-        <>
-          <h2>{questions[currentQuestionIndex].title}</h2>
-          <div>{timer} seconds left</div>
-          <div>
-            {questions[currentQuestionIndex].choices.map((choice, index) => (
-              <button key={index} onClick={() => setSelectedAnswer(choice)}>
-                {choice}
-              </button>
-            ))}
-          </div>
-          <div>Your score: {score}</div>
-        </>
-      )}
+      <h2>
+        {questions[currentQuestionIndex]?.title || "Waiting for question..."}
+      </h2>
+      <div>{timer} seconds left</div>
+      <div>
+        {questions.length > 0 &&
+          questions[currentQuestionIndex]?.choices.map((choice, index) => (
+            <button key={index} onClick={() => setSelectedAnswer(choice)}>
+              {choice}
+            </button>
+          ))}
+      </div>
+      <div>Your score: {playerScore}</div>
+      <div>
+        Opponent ({opponentName}) score: {opponentScore}
+      </div>
     </div>
   );
 }
