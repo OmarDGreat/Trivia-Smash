@@ -10,9 +10,10 @@ function QuestionScreen({ sessionID, userID }) {
   const [playerScore, setPlayerScore] = useState(0);
   const [opponentScore, setOpponentScore] = useState(0);
   const [opponentName, setOpponentName] = useState("");
-  const [questions, setQuestions] = useState(questionsData["geography"]); 
+  const [questions, setQuestions] = useState(questionsData["geography"]);
   const [gameEnded, setGameEnded] = useState(false);
   const [showRound, setShowRound] = useState(true);
+  const [previousIndex, setPreviousIndex] = useState(-1);
 
   const sessionRef = sessionID ? doc(db, "game_sessions", sessionID) : null;
 
@@ -34,9 +35,10 @@ function QuestionScreen({ sessionID, userID }) {
         setOpponentName(data.players[opponentID]?.name || "Unknown");
       }
 
+      // Reset showRound and timer when both players have answered or when moving to the next question
       if (data.players[userID]?.answered && data.players[opponentID]?.answered) {
-        setShowRound(true); // Show round transition
-        setSelectedAnswer(null); // Reset answer for the next question
+        setShowRound(true);
+        setTimer(10);
       }
     });
 
@@ -45,15 +47,38 @@ function QuestionScreen({ sessionID, userID }) {
 
   useEffect(() => {
     let interval = null;
+    let roundTimeout = null;
+  
     if (showRound) {
-      setTimeout(() => setShowRound(false), 2000); // Show round for 2 seconds
+      roundTimeout = setTimeout(() => {
+        setShowRound(false);
+        setTimer(10); // Start the timer for the question after the round transition
+      }, 2000); // Show round for 2 seconds
     } else if (timer > 0 && !gameEnded) {
       interval = setInterval(() => setTimer(prevTimer => prevTimer - 1), 1000);
     } else if (timer === 0 && !gameEnded) {
-      setTimer(10); // Reset timer for next question or round transition
+      // Check if it's time to move to the next question or end the game
+      if (currentQuestionIndex < questions.length - 1) {
+        setCurrentQuestionIndex(currentIndex => currentIndex + 1);
+        setShowRound(true); // Prepare to show the next round transition
+        setSelectedAnswer(null); // Allow answering the new question
+      } else {
+        setGameEnded(true); // No more questions, end the game
+      }
     }
-    return () => clearInterval(interval);
-  }, [timer, gameEnded, showRound]);
+  
+    return () => {
+      clearInterval(interval);
+      clearTimeout(roundTimeout);
+    };
+  }, [timer, currentQuestionIndex, questions.length, gameEnded, showRound]);
+
+  useEffect(() => {
+    if (!showRound && currentQuestionIndex !== previousIndex) {
+      setSelectedAnswer(null); // Reset selected answer for the new question
+      setPreviousIndex(currentQuestionIndex); // Update the previous index to the current one
+    }
+  }, [showRound, currentQuestionIndex, previousIndex]);
 
   const handleAnswer = async (answer) => {
     if (selectedAnswer || !sessionRef) return;
@@ -67,6 +92,7 @@ function QuestionScreen({ sessionID, userID }) {
       [`players.${userID}.answered`]: true,
     });
 
+    // Check if both players have answered to move to the next question
     const sessionSnapshot = await getDoc(sessionRef);
     const sessionData = sessionSnapshot.data();
     const opponentID = Object.keys(sessionData.players).find(id => id !== userID);
@@ -78,7 +104,7 @@ function QuestionScreen({ sessionID, userID }) {
           [`players.${userID}.answered`]: false,
           [`players.${opponentID}.answered`]: false,
         });
-        setTimer(10); // Reset timer for the next question
+        setShowRound(true); // Show the round transition for the next question
       } else {
         await updateDoc(sessionRef, { gameEnded: true });
       }
