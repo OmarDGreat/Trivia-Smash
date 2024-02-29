@@ -1,3 +1,4 @@
+import questionsData from "../Models/questionsData";
 import { db } from "../firebase-config";
 import {
   collection,
@@ -49,6 +50,7 @@ async function matchPlayers() {
 
 async function createGameSession(matchedPlayers, topic) {
   const sessionRef = collection(db, "game_sessions");
+  const questions = questionsData[topic] || []; // Assuming questionsData is available here or fetched from somewhere
   const sessionData = {
     players: matchedPlayers.reduce(
       (acc, player) => ({
@@ -59,17 +61,21 @@ async function createGameSession(matchedPlayers, topic) {
     ),
     topic: topic,
     createdAt: new Date(),
-    timer: 10, // Initialize the timer to 10 seconds for the question countdown
+    currentQuestionIndex: 0, // Ensure this is set to 0
+    totalQuestions: questions.length, // Store the total number of questions
+    gameEnded: false, // Ensure this is set to false
   };
 
   let docRef;
   try {
     docRef = await addDoc(sessionRef, sessionData);
+    console.log(`Game session created with ID: ${docRef.id}`);
   } catch (error) {
     console.error("Error creating a new game session:", error);
     return;
   }
 
+  // Update the players' queue entries with the session ID and matched status
   for (const player of matchedPlayers) {
     const playerRef = doc(db, "queue", player.queueId);
     try {
@@ -79,5 +85,6 @@ async function createGameSession(matchedPlayers, topic) {
     }
   }
 }
+
 
 export { matchPlayers };

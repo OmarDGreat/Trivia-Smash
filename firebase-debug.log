@@ -1,0 +1,303 @@
+[debug] [2024-02-28T18:40:14.132Z] ----------------------------------------------------------------------
+[debug] [2024-02-28T18:40:14.135Z] Command:       C:\Program Files\nodejs\node.exe C:\Program Files\nodejs\node_modules\firebase-tools\lib\bin\firebase.js deploy --only functions
+[debug] [2024-02-28T18:40:14.135Z] CLI Version:   13.4.0
+[debug] [2024-02-28T18:40:14.135Z] Platform:      win32
+[debug] [2024-02-28T18:40:14.135Z] Node Version:  v20.11.0
+[debug] [2024-02-28T18:40:14.135Z] Time:          Wed Feb 28 2024 11:40:14 GMT-0700 (Mountain Standard Time)
+[debug] [2024-02-28T18:40:14.135Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-02-28T18:40:14.214Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-02-28T18:40:14.214Z] > authorizing via signed-in user (cerberus.raj@gmail.com)
+[debug] [2024-02-28T18:40:14.214Z] [iam] checking project trivia-smash for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]
+[debug] [2024-02-28T18:40:14.215Z] > refreshing access token with scopes: []
+[debug] [2024-02-28T18:40:14.217Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2024-02-28T18:40:14.217Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-02-28T18:40:14.423Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2024-02-28T18:40:14.423Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-02-28T18:40:14.446Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/trivia-smash:testIamPermissions [none]
+[debug] [2024-02-28T18:40:14.446Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/trivia-smash:testIamPermissions x-goog-quota-user=projects/trivia-smash
+[debug] [2024-02-28T18:40:14.446Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/trivia-smash:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[debug] [2024-02-28T18:40:14.662Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/trivia-smash:testIamPermissions 200
+[debug] [2024-02-28T18:40:14.662Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/trivia-smash:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[debug] [2024-02-28T18:40:14.663Z] >>> [apiv2][query] POST https://iam.googleapis.com/v1/projects/trivia-smash/serviceAccounts/trivia-smash@appspot.gserviceaccount.com:testIamPermissions [none]
+[debug] [2024-02-28T18:40:14.663Z] >>> [apiv2][body] POST https://iam.googleapis.com/v1/projects/trivia-smash/serviceAccounts/trivia-smash@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2024-02-28T18:40:14.991Z] <<< [apiv2][status] POST https://iam.googleapis.com/v1/projects/trivia-smash/serviceAccounts/trivia-smash@appspot.gserviceaccount.com:testIamPermissions 200
+[debug] [2024-02-28T18:40:14.991Z] <<< [apiv2][body] POST https://iam.googleapis.com/v1/projects/trivia-smash/serviceAccounts/trivia-smash@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[info] 
+[info] === Deploying to 'trivia-smash'...
+[info] 
+[info] i  deploying functions 
+[info] Running command: npm --prefix "$RESOURCE_DIR" run lint
+[info] +  functions: Finished running predeploy script. 
+[debug] [2024-02-28T18:40:21.862Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/trivia-smash [none]
+[debug] [2024-02-28T18:40:22.047Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/trivia-smash 200
+[debug] [2024-02-28T18:40:22.047Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/trivia-smash {"projectId":"trivia-smash","projectNumber":"1006261280011","displayName":"Trivia Smash","name":"projects/trivia-smash","resources":{"hostingSite":"trivia-smash"},"state":"ACTIVE","etag":"1_fbc46f20-b8fd-4944-901f-bc062a1b2768"}
+[info] i  functions: preparing codebase default for deployment 
+[info] i  functions: ensuring required API cloudfunctions.googleapis.com is enabled... 
+[info] i  functions: ensuring required API cloudbuild.googleapis.com is enabled... 
+[info] i  artifactregistry: ensuring required API artifactregistry.googleapis.com is enabled... 
+[debug] [2024-02-28T18:40:22.049Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/trivia-smash/services/cloudfunctions.googleapis.com [none]
+[debug] [2024-02-28T18:40:22.049Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/trivia-smash/services/cloudfunctions.googleapis.com x-goog-quota-user=projects/trivia-smash
+[debug] [2024-02-28T18:40:22.050Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/trivia-smash/services/runtimeconfig.googleapis.com [none]
+[debug] [2024-02-28T18:40:22.050Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/trivia-smash/services/runtimeconfig.googleapis.com x-goog-quota-user=projects/trivia-smash
+[debug] [2024-02-28T18:40:22.051Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/trivia-smash/services/cloudbuild.googleapis.com [none]
+[debug] [2024-02-28T18:40:22.051Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/trivia-smash/services/cloudbuild.googleapis.com x-goog-quota-user=projects/trivia-smash
+[debug] [2024-02-28T18:40:22.052Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/trivia-smash/services/artifactregistry.googleapis.com [none]
+[debug] [2024-02-28T18:40:22.052Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/trivia-smash/services/artifactregistry.googleapis.com x-goog-quota-user=projects/trivia-smash
+[debug] [2024-02-28T18:40:22.405Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/trivia-smash/services/artifactregistry.googleapis.com 200
+[debug] [2024-02-28T18:40:22.405Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/trivia-smash/services/artifactregistry.googleapis.com [omitted]
+[warn] !  artifactregistry: missing required API artifactregistry.googleapis.com. Enabling now... 
+[debug] [2024-02-28T18:40:22.406Z] >>> [apiv2][query] POST https://serviceusage.googleapis.com/v1/projects/trivia-smash/services/artifactregistry.googleapis.com:enable [none]
+[debug] [2024-02-28T18:40:22.406Z] >>> [apiv2][(partial)header] POST https://serviceusage.googleapis.com/v1/projects/trivia-smash/services/artifactregistry.googleapis.com:enable x-goog-quota-user=projects/trivia-smash
+[debug] [2024-02-28T18:40:22.410Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/trivia-smash/services/runtimeconfig.googleapis.com 200
+[debug] [2024-02-28T18:40:22.410Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/trivia-smash/services/runtimeconfig.googleapis.com [omitted]
+[debug] [2024-02-28T18:40:22.411Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/trivia-smash/services/cloudfunctions.googleapis.com 200
+[debug] [2024-02-28T18:40:22.411Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/trivia-smash/services/cloudfunctions.googleapis.com [omitted]
+[info] +  functions: required API cloudfunctions.googleapis.com is enabled 
+[debug] [2024-02-28T18:40:22.412Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/trivia-smash/services/cloudbuild.googleapis.com 200
+[debug] [2024-02-28T18:40:22.413Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/trivia-smash/services/cloudbuild.googleapis.com [omitted]
+[warn] !  functions: missing required API cloudbuild.googleapis.com. Enabling now... 
+[debug] [2024-02-28T18:40:22.413Z] >>> [apiv2][query] POST https://serviceusage.googleapis.com/v1/projects/trivia-smash/services/cloudbuild.googleapis.com:enable [none]
+[debug] [2024-02-28T18:40:22.413Z] >>> [apiv2][(partial)header] POST https://serviceusage.googleapis.com/v1/projects/trivia-smash/services/cloudbuild.googleapis.com:enable x-goog-quota-user=projects/trivia-smash
+[debug] [2024-02-28T18:40:23.060Z] <<< [apiv2][status] POST https://serviceusage.googleapis.com/v1/projects/trivia-smash/services/artifactregistry.googleapis.com:enable 200
+[debug] [2024-02-28T18:40:23.061Z] <<< [apiv2][body] POST https://serviceusage.googleapis.com/v1/projects/trivia-smash/services/artifactregistry.googleapis.com:enable [omitted]
+[debug] [2024-02-28T18:40:23.070Z] <<< [apiv2][status] POST https://serviceusage.googleapis.com/v1/projects/trivia-smash/services/cloudbuild.googleapis.com:enable 200
+[debug] [2024-02-28T18:40:23.070Z] <<< [apiv2][body] POST https://serviceusage.googleapis.com/v1/projects/trivia-smash/services/cloudbuild.googleapis.com:enable [omitted]
+[debug] [2024-02-28T18:40:33.070Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/trivia-smash/services/artifactregistry.googleapis.com [none]
+[debug] [2024-02-28T18:40:33.070Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/trivia-smash/services/artifactregistry.googleapis.com x-goog-quota-user=projects/trivia-smash
+[debug] [2024-02-28T18:40:33.072Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/trivia-smash/services/cloudbuild.googleapis.com [none]
+[debug] [2024-02-28T18:40:33.072Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/trivia-smash/services/cloudbuild.googleapis.com x-goog-quota-user=projects/trivia-smash
+[debug] [2024-02-28T18:40:33.382Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/trivia-smash/services/cloudbuild.googleapis.com 200
+[debug] [2024-02-28T18:40:33.382Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/trivia-smash/services/cloudbuild.googleapis.com [omitted]
+[info] +  functions: required API cloudbuild.googleapis.com is enabled 
+[debug] [2024-02-28T18:40:33.384Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/trivia-smash/services/artifactregistry.googleapis.com 200
+[debug] [2024-02-28T18:40:33.384Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/trivia-smash/services/artifactregistry.googleapis.com [omitted]
+[info] +  artifactregistry: required API artifactregistry.googleapis.com is enabled 
+[debug] [2024-02-28T18:40:33.385Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/trivia-smash/adminSdkConfig [none]
+[debug] [2024-02-28T18:40:33.539Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/trivia-smash/adminSdkConfig 200
+[debug] [2024-02-28T18:40:33.539Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/trivia-smash/adminSdkConfig {"projectId":"trivia-smash","storageBucket":"trivia-smash.appspot.com"}
+[debug] [2024-02-28T18:40:33.539Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/trivia-smash/configs [none]
+[debug] [2024-02-28T18:40:33.820Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/trivia-smash/configs 200
+[debug] [2024-02-28T18:40:33.820Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/trivia-smash/configs {}
+[debug] [2024-02-28T18:40:33.822Z] Validating nodejs source
+[debug] [2024-02-28T18:40:35.185Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "18"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "firebase-admin": "^11.8.0",
+    "firebase-functions": "^4.3.1"
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.x",
+    "eslint": "^8.15.0",
+    "eslint-config-google": "^0.14.0",
+    "firebase-functions-test": "^3.1.0"
+  },
+  "private": true
+}
+[debug] [2024-02-28T18:40:35.185Z] Building nodejs source
+[info] i  functions: Loading and analyzing source code for codebase default to determine what to deploy 
+[debug] [2024-02-28T18:40:35.186Z] Could not find functions.yaml. Must use http discovery
+[debug] [2024-02-28T18:40:35.193Z] Found firebase-functions binary at 'C:\Users\odagh\Desktop\Trivia-Smash\functions\node_modules\.bin\firebase-functions'
+[info] Serving at port 8247
+
+[debug] [2024-02-28T18:40:36.124Z] Got response from /__/functions.yaml {"endpoints":{"decrementTimer":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"scheduleTrigger":{"schedule":"* * * * *","retryConfig":{"retryCount":null,"maxDoublings":null,"maxRetryDuration":null,"maxBackoffDuration":null,"minBackoffDuration":null},"timeZone":null},"labels":{},"entryPoint":"decrementTimer"}},"specVersion":"v1alpha1","requiredAPIs":[{"api":"cloudscheduler.googleapis.com","reason":"Needed for scheduled functions."}]}
+[info] i  functions: preparing functions directory for uploading... 
+[info] i  functions: packaged C:\Users\odagh\Desktop\Trivia-Smash\functions (74.7 KB) for uploading 
+[debug] [2024-02-28T18:40:41.194Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/projects/trivia-smash/locations/-/functions [none]
+[debug] [2024-02-28T18:40:41.729Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/projects/trivia-smash/locations/-/functions 200
+[debug] [2024-02-28T18:40:41.729Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/projects/trivia-smash/locations/-/functions {}
+[debug] [2024-02-28T18:40:41.730Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/trivia-smash/locations/-/functions filter=environment%3D%22GEN_2%22
+[debug] [2024-02-28T18:40:42.103Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/trivia-smash/locations/-/functions 200
+[debug] [2024-02-28T18:40:42.103Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/trivia-smash/locations/-/functions {}
+[info] i  functions: ensuring required API cloudscheduler.googleapis.com is enabled... 
+[debug] [2024-02-28T18:40:42.105Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/trivia-smash/services/cloudscheduler.googleapis.com [none]
+[debug] [2024-02-28T18:40:42.105Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/trivia-smash/services/cloudscheduler.googleapis.com x-goog-quota-user=projects/trivia-smash
+[debug] [2024-02-28T18:40:42.445Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/trivia-smash/services/cloudscheduler.googleapis.com 200
+[debug] [2024-02-28T18:40:42.445Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/trivia-smash/services/cloudscheduler.googleapis.com [omitted]
+[warn] !  functions: missing required API cloudscheduler.googleapis.com. Enabling now... 
+[debug] [2024-02-28T18:40:42.446Z] >>> [apiv2][query] POST https://serviceusage.googleapis.com/v1/projects/trivia-smash/services/cloudscheduler.googleapis.com:enable [none]
+[debug] [2024-02-28T18:40:42.446Z] >>> [apiv2][(partial)header] POST https://serviceusage.googleapis.com/v1/projects/trivia-smash/services/cloudscheduler.googleapis.com:enable x-goog-quota-user=projects/trivia-smash
+[debug] [2024-02-28T18:40:42.910Z] <<< [apiv2][status] POST https://serviceusage.googleapis.com/v1/projects/trivia-smash/services/cloudscheduler.googleapis.com:enable 200
+[debug] [2024-02-28T18:40:42.910Z] <<< [apiv2][body] POST https://serviceusage.googleapis.com/v1/projects/trivia-smash/services/cloudscheduler.googleapis.com:enable [omitted]
+[debug] [2024-02-28T18:40:52.912Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/trivia-smash/services/cloudscheduler.googleapis.com [none]
+[debug] [2024-02-28T18:40:52.912Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/trivia-smash/services/cloudscheduler.googleapis.com x-goog-quota-user=projects/trivia-smash
+[debug] [2024-02-28T18:40:53.210Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/trivia-smash/services/cloudscheduler.googleapis.com 200
+[debug] [2024-02-28T18:40:53.210Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/trivia-smash/services/cloudscheduler.googleapis.com [omitted]
+[info] +  functions: required API cloudscheduler.googleapis.com is enabled 
+[debug] [2024-02-28T18:40:53.213Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/trivia-smash [none]
+[debug] [2024-02-28T18:40:53.369Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/trivia-smash 200
+[debug] [2024-02-28T18:40:53.369Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/trivia-smash {"projectId":"trivia-smash","projectNumber":"1006261280011","displayName":"Trivia Smash","name":"projects/trivia-smash","resources":{"hostingSite":"trivia-smash"},"state":"ACTIVE","etag":"1_fbc46f20-b8fd-4944-901f-bc062a1b2768"}
+[debug] [2024-02-28T18:40:53.370Z] >>> [apiv2][query] POST https://cloudfunctions.googleapis.com/v1/projects/trivia-smash/locations/us-central1/functions:generateUploadUrl [none]
+[debug] [2024-02-28T18:40:53.370Z] >>> [apiv2][body] POST https://cloudfunctions.googleapis.com/v1/projects/trivia-smash/locations/us-central1/functions:generateUploadUrl {}
+[debug] [2024-02-28T18:41:03.484Z] <<< [apiv2][status] POST https://cloudfunctions.googleapis.com/v1/projects/trivia-smash/locations/us-central1/functions:generateUploadUrl 200
+[debug] [2024-02-28T18:41:03.484Z] <<< [apiv2][body] POST https://cloudfunctions.googleapis.com/v1/projects/trivia-smash/locations/us-central1/functions:generateUploadUrl {"uploadUrl":"https://storage.googleapis.com/uploads-323836782972.us-central1.cloudfunctions.appspot.com/39360e8c-e526-42df-8151-cb9e8ce0ab54.zip?GoogleAccessId=service-1006261280011@gcf-admin-robot.iam.gserviceaccount.com&Expires=1709147464&Signature=JcHGPLaxaME3FHvxZjpkEiePm95D8a7cYf4DnrWs90NjncXzZa0Xlo3DWDOzHeEduAy6weIQkzwhqhqg45GkhlCRaEpgcXwx2uITjudbYXjSDiv2PxzvyqMqY8fhnwUlzhODCK2x4qBVQb%2FoZacSh7g%2FKGCVcwwaSNiAzP1%2FimvWUKsv2%2FEuqJ1hhCU%2F6HxmztL5FZQW6onCJusoqLLGR1dyjLBNk1PHTXnm0S98vL2EVcVcL4MLVwscBZqeWRlDjLhdKJ%2B1Nah%2FYy6OyuWHM0FAi2LOBq9ynRwDG%2FPmlcZRWUwGYQpme3mJ%2FcEUU7TIZZ1%2FDYN7EidtDz7FWd85yw%3D%3D"}
+[debug] [2024-02-28T18:41:03.485Z] >>> [apiv2][query] PUT https://storage.googleapis.com/uploads-323836782972.us-central1.cloudfunctions.appspot.com/39360e8c-e526-42df-8151-cb9e8ce0ab54.zip GoogleAccessId=service-1006261280011%40gcf-admin-robot.iam.gserviceaccount.com&Expires=1709147464&Signature=JcHGPLaxaME3FHvxZjpkEiePm95D8a7cYf4DnrWs90NjncXzZa0Xlo3DWDOzHeEduAy6weIQkzwhqhqg45GkhlCRaEpgcXwx2uITjudbYXjSDiv2PxzvyqMqY8fhnwUlzhODCK2x4qBVQb%2FoZacSh7g%2FKGCVcwwaSNiAzP1%2FimvWUKsv2%2FEuqJ1hhCU%2F6HxmztL5FZQW6onCJusoqLLGR1dyjLBNk1PHTXnm0S98vL2EVcVcL4MLVwscBZqeWRlDjLhdKJ%2B1Nah%2FYy6OyuWHM0FAi2LOBq9ynRwDG%2FPmlcZRWUwGYQpme3mJ%2FcEUU7TIZZ1%2FDYN7EidtDz7FWd85yw%3D%3D
+[debug] [2024-02-28T18:41:03.485Z] >>> [apiv2][body] PUT https://storage.googleapis.com/uploads-323836782972.us-central1.cloudfunctions.appspot.com/39360e8c-e526-42df-8151-cb9e8ce0ab54.zip [stream]
+[debug] [2024-02-28T18:41:03.831Z] <<< [apiv2][status] PUT https://storage.googleapis.com/uploads-323836782972.us-central1.cloudfunctions.appspot.com/39360e8c-e526-42df-8151-cb9e8ce0ab54.zip 200
+[debug] [2024-02-28T18:41:03.832Z] <<< [apiv2][body] PUT https://storage.googleapis.com/uploads-323836782972.us-central1.cloudfunctions.appspot.com/39360e8c-e526-42df-8151-cb9e8ce0ab54.zip [omitted]
+[info] +  functions: functions folder uploaded successfully 
+[info] i  functions: creating Node.js 18 (1st Gen) function decrementTimer(us-central1)... 
+[debug] [2024-02-28T18:41:03.835Z] >>> [apiv2][query] POST https://cloudfunctions.googleapis.com/v1/projects/trivia-smash/locations/us-central1/functions [none]
+[debug] [2024-02-28T18:41:03.835Z] >>> [apiv2][body] POST https://cloudfunctions.googleapis.com/v1/projects/trivia-smash/locations/us-central1/functions {"name":"projects/trivia-smash/locations/us-central1/functions/decrementTimer","sourceUploadUrl":"https://storage.googleapis.com/uploads-323836782972.us-central1.cloudfunctions.appspot.com/39360e8c-e526-42df-8151-cb9e8ce0ab54.zip?GoogleAccessId=service-1006261280011@gcf-admin-robot.iam.gserviceaccount.com&Expires=1709147464&Signature=JcHGPLaxaME3FHvxZjpkEiePm95D8a7cYf4DnrWs90NjncXzZa0Xlo3DWDOzHeEduAy6weIQkzwhqhqg45GkhlCRaEpgcXwx2uITjudbYXjSDiv2PxzvyqMqY8fhnwUlzhODCK2x4qBVQb%2FoZacSh7g%2FKGCVcwwaSNiAzP1%2FimvWUKsv2%2FEuqJ1hhCU%2F6HxmztL5FZQW6onCJusoqLLGR1dyjLBNk1PHTXnm0S98vL2EVcVcL4MLVwscBZqeWRlDjLhdKJ%2B1Nah%2FYy6OyuWHM0FAi2LOBq9ynRwDG%2FPmlcZRWUwGYQpme3mJ%2FcEUU7TIZZ1%2FDYN7EidtDz7FWd85yw%3D%3D","entryPoint":"decrementTimer","runtime":"nodejs18","dockerRegistry":"ARTIFACT_REGISTRY","labels":{"deployment-tool":"cli-firebase","deployment-scheduled":"true","firebase-functions-hash":"9d72ce5dbfd3873faac0833aa82848de701da24b"},"eventTrigger":{"eventType":"google.pubsub.topic.publish","resource":"projects/trivia-smash/topics/firebase-schedule-decrementTimer-us-central1"},"minInstances":null,"maxInstances":null,"ingressSettings":null,"environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"trivia-smash\",\"storageBucket\":\"trivia-smash.appspot.com\"}","GCLOUD_PROJECT":"trivia-smash","EVENTARC_CLOUD_EVENT_SOURCE":"projects/trivia-smash/locations/us-central1/functions/decrementTimer"},"serviceAccountEmail":null,"availableMemoryMb":null,"timeout":null,"vpcConnector":null,"vpcConnectorEgressSettings":null,"buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""}}
+[debug] [2024-02-28T18:41:04.425Z] <<< [apiv2][status] POST https://cloudfunctions.googleapis.com/v1/projects/trivia-smash/locations/us-central1/functions 200
+[debug] [2024-02-28T18:41:04.425Z] <<< [apiv2][body] POST https://cloudfunctions.googleapis.com/v1/projects/trivia-smash/locations/us-central1/functions {"name":"operations/dHJpdmlhLXNtYXNoL3VzLWNlbnRyYWwxL2RlY3JlbWVudFRpbWVyL19hZGFqRUItMzBn","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v1.OperationMetadataV1","target":"projects/trivia-smash/locations/us-central1/functions/decrementTimer","type":"CREATE_FUNCTION","request":{"@type":"type.googleapis.com/google.cloud.functions.v1.CloudFunction","name":"projects/trivia-smash/locations/us-central1/functions/decrementTimer","eventTrigger":{"eventType":"google.pubsub.topic.publish","resource":"projects/trivia-smash/topics/firebase-schedule-decrementTimer-us-central1"},"entryPoint":"decrementTimer","labels":{"deployment-tool":"cli-firebase","deployment-scheduled":"true","firebase-functions-hash":"9d72ce5dbfd3873faac0833aa82848de701da24b"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-323836782972.us-central1.cloudfunctions.appspot.com/39360e8c-e526-42df-8151-cb9e8ce0ab54.zip?GoogleAccessId=service-1006261280011@gcf-admin-robot.iam.gserviceaccount.com&Expires=1709147464&Signature=JcHGPLaxaME3FHvxZjpkEiePm95D8a7cYf4DnrWs90NjncXzZa0Xlo3DWDOzHeEduAy6weIQkzwhqhqg45GkhlCRaEpgcXwx2uITjudbYXjSDiv2PxzvyqMqY8fhnwUlzhODCK2x4qBVQb%2FoZacSh7g%2FKGCVcwwaSNiAzP1%2FimvWUKsv2%2FEuqJ1hhCU%2F6HxmztL5FZQW6onCJusoqLLGR1dyjLBNk1PHTXnm0S98vL2EVcVcL4MLVwscBZqeWRlDjLhdKJ%2B1Nah%2FYy6OyuWHM0FAi2LOBq9ynRwDG%2FPmlcZRWUwGYQpme3mJ%2FcEUU7TIZZ1%2FDYN7EidtDz7FWd85yw%3D%3D","environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"trivia-smash\",\"storageBucket\":\"trivia-smash.appspot.com\"}","GCLOUD_PROJECT":"trivia-smash","EVENTARC_CLOUD_EVENT_SOURCE":"projects/trivia-smash/locations/us-central1/functions/decrementTimer"},"runtime":"nodejs18","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"dockerRegistry":"ARTIFACT_REGISTRY"},"versionId":"1","updateTime":"2024-02-28T18:41:05Z"}}
+[debug] [2024-02-28T18:41:04.425Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/operations/dHJpdmlhLXNtYXNoL3VzLWNlbnRyYWwxL2RlY3JlbWVudFRpbWVyL19hZGFqRUItMzBn [none]
+[debug] [2024-02-28T18:41:04.532Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/operations/dHJpdmlhLXNtYXNoL3VzLWNlbnRyYWwxL2RlY3JlbWVudFRpbWVyL19hZGFqRUItMzBn 200
+[debug] [2024-02-28T18:41:04.532Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/operations/dHJpdmlhLXNtYXNoL3VzLWNlbnRyYWwxL2RlY3JlbWVudFRpbWVyL19hZGFqRUItMzBn {"name":"operations/dHJpdmlhLXNtYXNoL3VzLWNlbnRyYWwxL2RlY3JlbWVudFRpbWVyL19hZGFqRUItMzBn","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v1.OperationMetadataV1","target":"projects/trivia-smash/locations/us-central1/functions/decrementTimer","type":"CREATE_FUNCTION","request":{"@type":"type.googleapis.com/google.cloud.functions.v1.CloudFunction","name":"projects/trivia-smash/locations/us-central1/functions/decrementTimer","eventTrigger":{"eventType":"google.pubsub.topic.publish","resource":"projects/trivia-smash/topics/firebase-schedule-decrementTimer-us-central1"},"entryPoint":"decrementTimer","labels":{"deployment-tool":"cli-firebase","deployment-scheduled":"true","firebase-functions-hash":"9d72ce5dbfd3873faac0833aa82848de701da24b"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-323836782972.us-central1.cloudfunctions.appspot.com/39360e8c-e526-42df-8151-cb9e8ce0ab54.zip?GoogleAccessId=service-1006261280011@gcf-admin-robot.iam.gserviceaccount.com&Expires=1709147464&Signature=JcHGPLaxaME3FHvxZjpkEiePm95D8a7cYf4DnrWs90NjncXzZa0Xlo3DWDOzHeEduAy6weIQkzwhqhqg45GkhlCRaEpgcXwx2uITjudbYXjSDiv2PxzvyqMqY8fhnwUlzhODCK2x4qBVQb%2FoZacSh7g%2FKGCVcwwaSNiAzP1%2FimvWUKsv2%2FEuqJ1hhCU%2F6HxmztL5FZQW6onCJusoqLLGR1dyjLBNk1PHTXnm0S98vL2EVcVcL4MLVwscBZqeWRlDjLhdKJ%2B1Nah%2FYy6OyuWHM0FAi2LOBq9ynRwDG%2FPmlcZRWUwGYQpme3mJ%2FcEUU7TIZZ1%2FDYN7EidtDz7FWd85yw%3D%3D","environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"trivia-smash\",\"storageBucket\":\"trivia-smash.appspot.com\"}","GCLOUD_PROJECT":"trivia-smash","EVENTARC_CLOUD_EVENT_SOURCE":"projects/trivia-smash/locations/us-central1/functions/decrementTimer"},"runtime":"nodejs18","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"dockerRegistry":"ARTIFACT_REGISTRY"},"versionId":"1","updateTime":"2024-02-28T18:41:05Z"}}
+[debug] [2024-02-28T18:41:05.040Z] [create-default-us-central1-decrementTimer] Retrying task index 0
+[debug] [2024-02-28T18:41:05.040Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/operations/dHJpdmlhLXNtYXNoL3VzLWNlbnRyYWwxL2RlY3JlbWVudFRpbWVyL19hZGFqRUItMzBn [none]
+[debug] [2024-02-28T18:41:05.184Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/operations/dHJpdmlhLXNtYXNoL3VzLWNlbnRyYWwxL2RlY3JlbWVudFRpbWVyL19hZGFqRUItMzBn 200
+[debug] [2024-02-28T18:41:05.184Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/operations/dHJpdmlhLXNtYXNoL3VzLWNlbnRyYWwxL2RlY3JlbWVudFRpbWVyL19hZGFqRUItMzBn {"name":"operations/dHJpdmlhLXNtYXNoL3VzLWNlbnRyYWwxL2RlY3JlbWVudFRpbWVyL19hZGFqRUItMzBn","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v1.OperationMetadataV1","target":"projects/trivia-smash/locations/us-central1/functions/decrementTimer","type":"CREATE_FUNCTION","request":{"@type":"type.googleapis.com/google.cloud.functions.v1.CloudFunction","name":"projects/trivia-smash/locations/us-central1/functions/decrementTimer","eventTrigger":{"eventType":"google.pubsub.topic.publish","resource":"projects/trivia-smash/topics/firebase-schedule-decrementTimer-us-central1"},"entryPoint":"decrementTimer","labels":{"deployment-tool":"cli-firebase","deployment-scheduled":"true","firebase-functions-hash":"9d72ce5dbfd3873faac0833aa82848de701da24b"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-323836782972.us-central1.cloudfunctions.appspot.com/39360e8c-e526-42df-8151-cb9e8ce0ab54.zip?GoogleAccessId=service-1006261280011@gcf-admin-robot.iam.gserviceaccount.com&Expires=1709147464&Signature=JcHGPLaxaME3FHvxZjpkEiePm95D8a7cYf4DnrWs90NjncXzZa0Xlo3DWDOzHeEduAy6weIQkzwhqhqg45GkhlCRaEpgcXwx2uITjudbYXjSDiv2PxzvyqMqY8fhnwUlzhODCK2x4qBVQb%2FoZacSh7g%2FKGCVcwwaSNiAzP1%2FimvWUKsv2%2FEuqJ1hhCU%2F6HxmztL5FZQW6onCJusoqLLGR1dyjLBNk1PHTXnm0S98vL2EVcVcL4MLVwscBZqeWRlDjLhdKJ%2B1Nah%2FYy6OyuWHM0FAi2LOBq9ynRwDG%2FPmlcZRWUwGYQpme3mJ%2FcEUU7TIZZ1%2FDYN7EidtDz7FWd85yw%3D%3D","environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"trivia-smash\",\"storageBucket\":\"trivia-smash.appspot.com\"}","GCLOUD_PROJECT":"trivia-smash","EVENTARC_CLOUD_EVENT_SOURCE":"projects/trivia-smash/locations/us-central1/functions/decrementTimer"},"runtime":"nodejs18","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"dockerRegistry":"ARTIFACT_REGISTRY"},"versionId":"1","updateTime":"2024-02-28T18:41:05Z"}}
+[debug] [2024-02-28T18:41:06.192Z] [create-default-us-central1-decrementTimer] Retrying task index 0
+[debug] [2024-02-28T18:41:06.193Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/operations/dHJpdmlhLXNtYXNoL3VzLWNlbnRyYWwxL2RlY3JlbWVudFRpbWVyL19hZGFqRUItMzBn [none]
+[debug] [2024-02-28T18:41:06.302Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/operations/dHJpdmlhLXNtYXNoL3VzLWNlbnRyYWwxL2RlY3JlbWVudFRpbWVyL19hZGFqRUItMzBn 200
+[debug] [2024-02-28T18:41:06.302Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/operations/dHJpdmlhLXNtYXNoL3VzLWNlbnRyYWwxL2RlY3JlbWVudFRpbWVyL19hZGFqRUItMzBn {"name":"operations/dHJpdmlhLXNtYXNoL3VzLWNlbnRyYWwxL2RlY3JlbWVudFRpbWVyL19hZGFqRUItMzBn","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v1.OperationMetadataV1","target":"projects/trivia-smash/locations/us-central1/functions/decrementTimer","type":"CREATE_FUNCTION","request":{"@type":"type.googleapis.com/google.cloud.functions.v1.CloudFunction","name":"projects/trivia-smash/locations/us-central1/functions/decrementTimer","eventTrigger":{"eventType":"google.pubsub.topic.publish","resource":"projects/trivia-smash/topics/firebase-schedule-decrementTimer-us-central1"},"entryPoint":"decrementTimer","labels":{"deployment-tool":"cli-firebase","deployment-scheduled":"true","firebase-functions-hash":"9d72ce5dbfd3873faac0833aa82848de701da24b"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-323836782972.us-central1.cloudfunctions.appspot.com/39360e8c-e526-42df-8151-cb9e8ce0ab54.zip?GoogleAccessId=service-1006261280011@gcf-admin-robot.iam.gserviceaccount.com&Expires=1709147464&Signature=JcHGPLaxaME3FHvxZjpkEiePm95D8a7cYf4DnrWs90NjncXzZa0Xlo3DWDOzHeEduAy6weIQkzwhqhqg45GkhlCRaEpgcXwx2uITjudbYXjSDiv2PxzvyqMqY8fhnwUlzhODCK2x4qBVQb%2FoZacSh7g%2FKGCVcwwaSNiAzP1%2FimvWUKsv2%2FEuqJ1hhCU%2F6HxmztL5FZQW6onCJusoqLLGR1dyjLBNk1PHTXnm0S98vL2EVcVcL4MLVwscBZqeWRlDjLhdKJ%2B1Nah%2FYy6OyuWHM0FAi2LOBq9ynRwDG%2FPmlcZRWUwGYQpme3mJ%2FcEUU7TIZZ1%2FDYN7EidtDz7FWd85yw%3D%3D","environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"trivia-smash\",\"storageBucket\":\"trivia-smash.appspot.com\"}","GCLOUD_PROJECT":"trivia-smash","EVENTARC_CLOUD_EVENT_SOURCE":"projects/trivia-smash/locations/us-central1/functions/decrementTimer"},"runtime":"nodejs18","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"dockerRegistry":"ARTIFACT_REGISTRY"},"versionId":"1","updateTime":"2024-02-28T18:41:05Z"}}
+[debug] [2024-02-28T18:41:08.306Z] [create-default-us-central1-decrementTimer] Retrying task index 0
+[debug] [2024-02-28T18:41:08.307Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/operations/dHJpdmlhLXNtYXNoL3VzLWNlbnRyYWwxL2RlY3JlbWVudFRpbWVyL19hZGFqRUItMzBn [none]
+[debug] [2024-02-28T18:41:08.525Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/operations/dHJpdmlhLXNtYXNoL3VzLWNlbnRyYWwxL2RlY3JlbWVudFRpbWVyL19hZGFqRUItMzBn 200
+[debug] [2024-02-28T18:41:08.526Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/operations/dHJpdmlhLXNtYXNoL3VzLWNlbnRyYWwxL2RlY3JlbWVudFRpbWVyL19hZGFqRUItMzBn {"name":"operations/dHJpdmlhLXNtYXNoL3VzLWNlbnRyYWwxL2RlY3JlbWVudFRpbWVyL19hZGFqRUItMzBn","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v1.OperationMetadataV1","target":"projects/trivia-smash/locations/us-central1/functions/decrementTimer","type":"CREATE_FUNCTION","request":{"@type":"type.googleapis.com/google.cloud.functions.v1.CloudFunction","name":"projects/trivia-smash/locations/us-central1/functions/decrementTimer","eventTrigger":{"eventType":"google.pubsub.topic.publish","resource":"projects/trivia-smash/topics/firebase-schedule-decrementTimer-us-central1"},"entryPoint":"decrementTimer","labels":{"deployment-tool":"cli-firebase","deployment-scheduled":"true","firebase-functions-hash":"9d72ce5dbfd3873faac0833aa82848de701da24b"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-323836782972.us-central1.cloudfunctions.appspot.com/39360e8c-e526-42df-8151-cb9e8ce0ab54.zip?GoogleAccessId=service-1006261280011@gcf-admin-robot.iam.gserviceaccount.com&Expires=1709147464&Signature=JcHGPLaxaME3FHvxZjpkEiePm95D8a7cYf4DnrWs90NjncXzZa0Xlo3DWDOzHeEduAy6weIQkzwhqhqg45GkhlCRaEpgcXwx2uITjudbYXjSDiv2PxzvyqMqY8fhnwUlzhODCK2x4qBVQb%2FoZacSh7g%2FKGCVcwwaSNiAzP1%2FimvWUKsv2%2FEuqJ1hhCU%2F6HxmztL5FZQW6onCJusoqLLGR1dyjLBNk1PHTXnm0S98vL2EVcVcL4MLVwscBZqeWRlDjLhdKJ%2B1Nah%2FYy6OyuWHM0FAi2LOBq9ynRwDG%2FPmlcZRWUwGYQpme3mJ%2FcEUU7TIZZ1%2FDYN7EidtDz7FWd85yw%3D%3D","environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"trivia-smash\",\"storageBucket\":\"trivia-smash.appspot.com\"}","GCLOUD_PROJECT":"trivia-smash","EVENTARC_CLOUD_EVENT_SOURCE":"projects/trivia-smash/locations/us-central1/functions/decrementTimer"},"runtime":"nodejs18","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"dockerRegistry":"ARTIFACT_REGISTRY"},"versionId":"1","updateTime":"2024-02-28T18:41:05Z"}}
+[debug] [2024-02-28T18:41:12.538Z] [create-default-us-central1-decrementTimer] Retrying task index 0
+[debug] [2024-02-28T18:41:12.538Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/operations/dHJpdmlhLXNtYXNoL3VzLWNlbnRyYWwxL2RlY3JlbWVudFRpbWVyL19hZGFqRUItMzBn [none]
+[debug] [2024-02-28T18:41:12.623Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/operations/dHJpdmlhLXNtYXNoL3VzLWNlbnRyYWwxL2RlY3JlbWVudFRpbWVyL19hZGFqRUItMzBn 200
+[debug] [2024-02-28T18:41:12.624Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/operations/dHJpdmlhLXNtYXNoL3VzLWNlbnRyYWwxL2RlY3JlbWVudFRpbWVyL19hZGFqRUItMzBn {"name":"operations/dHJpdmlhLXNtYXNoL3VzLWNlbnRyYWwxL2RlY3JlbWVudFRpbWVyL19hZGFqRUItMzBn","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v1.OperationMetadataV1","target":"projects/trivia-smash/locations/us-central1/functions/decrementTimer","type":"CREATE_FUNCTION","request":{"@type":"type.googleapis.com/google.cloud.functions.v1.CloudFunction","name":"projects/trivia-smash/locations/us-central1/functions/decrementTimer","eventTrigger":{"eventType":"google.pubsub.topic.publish","resource":"projects/trivia-smash/topics/firebase-schedule-decrementTimer-us-central1"},"entryPoint":"decrementTimer","labels":{"deployment-tool":"cli-firebase","deployment-scheduled":"true","firebase-functions-hash":"9d72ce5dbfd3873faac0833aa82848de701da24b"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-323836782972.us-central1.cloudfunctions.appspot.com/39360e8c-e526-42df-8151-cb9e8ce0ab54.zip?GoogleAccessId=service-1006261280011@gcf-admin-robot.iam.gserviceaccount.com&Expires=1709147464&Signature=JcHGPLaxaME3FHvxZjpkEiePm95D8a7cYf4DnrWs90NjncXzZa0Xlo3DWDOzHeEduAy6weIQkzwhqhqg45GkhlCRaEpgcXwx2uITjudbYXjSDiv2PxzvyqMqY8fhnwUlzhODCK2x4qBVQb%2FoZacSh7g%2FKGCVcwwaSNiAzP1%2FimvWUKsv2%2FEuqJ1hhCU%2F6HxmztL5FZQW6onCJusoqLLGR1dyjLBNk1PHTXnm0S98vL2EVcVcL4MLVwscBZqeWRlDjLhdKJ%2B1Nah%2FYy6OyuWHM0FAi2LOBq9ynRwDG%2FPmlcZRWUwGYQpme3mJ%2FcEUU7TIZZ1%2FDYN7EidtDz7FWd85yw%3D%3D","environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"trivia-smash\",\"storageBucket\":\"trivia-smash.appspot.com\"}","GCLOUD_PROJECT":"trivia-smash","EVENTARC_CLOUD_EVENT_SOURCE":"projects/trivia-smash/locations/us-central1/functions/decrementTimer"},"runtime":"nodejs18","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"dockerRegistry":"ARTIFACT_REGISTRY"},"versionId":"1","updateTime":"2024-02-28T18:41:05Z"}}
+[debug] [2024-02-28T18:41:20.637Z] [create-default-us-central1-decrementTimer] Retrying task index 0
+[debug] [2024-02-28T18:41:20.638Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/operations/dHJpdmlhLXNtYXNoL3VzLWNlbnRyYWwxL2RlY3JlbWVudFRpbWVyL19hZGFqRUItMzBn [none]
+[debug] [2024-02-28T18:41:20.801Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/operations/dHJpdmlhLXNtYXNoL3VzLWNlbnRyYWwxL2RlY3JlbWVudFRpbWVyL19hZGFqRUItMzBn 200
+[debug] [2024-02-28T18:41:20.801Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/operations/dHJpdmlhLXNtYXNoL3VzLWNlbnRyYWwxL2RlY3JlbWVudFRpbWVyL19hZGFqRUItMzBn {"name":"operations/dHJpdmlhLXNtYXNoL3VzLWNlbnRyYWwxL2RlY3JlbWVudFRpbWVyL19hZGFqRUItMzBn","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v1.OperationMetadataV1","target":"projects/trivia-smash/locations/us-central1/functions/decrementTimer","type":"CREATE_FUNCTION","request":{"@type":"type.googleapis.com/google.cloud.functions.v1.CloudFunction","name":"projects/trivia-smash/locations/us-central1/functions/decrementTimer","eventTrigger":{"eventType":"google.pubsub.topic.publish","resource":"projects/trivia-smash/topics/firebase-schedule-decrementTimer-us-central1"},"entryPoint":"decrementTimer","labels":{"deployment-tool":"cli-firebase","deployment-scheduled":"true","firebase-functions-hash":"9d72ce5dbfd3873faac0833aa82848de701da24b"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-323836782972.us-central1.cloudfunctions.appspot.com/39360e8c-e526-42df-8151-cb9e8ce0ab54.zip?GoogleAccessId=service-1006261280011@gcf-admin-robot.iam.gserviceaccount.com&Expires=1709147464&Signature=JcHGPLaxaME3FHvxZjpkEiePm95D8a7cYf4DnrWs90NjncXzZa0Xlo3DWDOzHeEduAy6weIQkzwhqhqg45GkhlCRaEpgcXwx2uITjudbYXjSDiv2PxzvyqMqY8fhnwUlzhODCK2x4qBVQb%2FoZacSh7g%2FKGCVcwwaSNiAzP1%2FimvWUKsv2%2FEuqJ1hhCU%2F6HxmztL5FZQW6onCJusoqLLGR1dyjLBNk1PHTXnm0S98vL2EVcVcL4MLVwscBZqeWRlDjLhdKJ%2B1Nah%2FYy6OyuWHM0FAi2LOBq9ynRwDG%2FPmlcZRWUwGYQpme3mJ%2FcEUU7TIZZ1%2FDYN7EidtDz7FWd85yw%3D%3D","environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"trivia-smash\",\"storageBucket\":\"trivia-smash.appspot.com\"}","GCLOUD_PROJECT":"trivia-smash","EVENTARC_CLOUD_EVENT_SOURCE":"projects/trivia-smash/locations/us-central1/functions/decrementTimer"},"runtime":"nodejs18","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"dockerRegistry":"ARTIFACT_REGISTRY"},"versionId":"1","updateTime":"2024-02-28T18:41:05Z","buildId":"f51850bc-28fc-4763-8190-bcbbe63b9f8c","buildName":"projects/1006261280011/locations/us-central1/builds/f51850bc-28fc-4763-8190-bcbbe63b9f8c"}}
+[debug] [2024-02-28T18:41:30.804Z] [create-default-us-central1-decrementTimer] Retrying task index 0
+[debug] [2024-02-28T18:41:30.805Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/operations/dHJpdmlhLXNtYXNoL3VzLWNlbnRyYWwxL2RlY3JlbWVudFRpbWVyL19hZGFqRUItMzBn [none]
+[debug] [2024-02-28T18:41:30.930Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/operations/dHJpdmlhLXNtYXNoL3VzLWNlbnRyYWwxL2RlY3JlbWVudFRpbWVyL19hZGFqRUItMzBn 200
+[debug] [2024-02-28T18:41:30.930Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/operations/dHJpdmlhLXNtYXNoL3VzLWNlbnRyYWwxL2RlY3JlbWVudFRpbWVyL19hZGFqRUItMzBn {"name":"operations/dHJpdmlhLXNtYXNoL3VzLWNlbnRyYWwxL2RlY3JlbWVudFRpbWVyL19hZGFqRUItMzBn","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v1.OperationMetadataV1","target":"projects/trivia-smash/locations/us-central1/functions/decrementTimer","type":"CREATE_FUNCTION","request":{"@type":"type.googleapis.com/google.cloud.functions.v1.CloudFunction","name":"projects/trivia-smash/locations/us-central1/functions/decrementTimer","eventTrigger":{"eventType":"google.pubsub.topic.publish","resource":"projects/trivia-smash/topics/firebase-schedule-decrementTimer-us-central1"},"entryPoint":"decrementTimer","labels":{"deployment-tool":"cli-firebase","deployment-scheduled":"true","firebase-functions-hash":"9d72ce5dbfd3873faac0833aa82848de701da24b"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-323836782972.us-central1.cloudfunctions.appspot.com/39360e8c-e526-42df-8151-cb9e8ce0ab54.zip?GoogleAccessId=service-1006261280011@gcf-admin-robot.iam.gserviceaccount.com&Expires=1709147464&Signature=JcHGPLaxaME3FHvxZjpkEiePm95D8a7cYf4DnrWs90NjncXzZa0Xlo3DWDOzHeEduAy6weIQkzwhqhqg45GkhlCRaEpgcXwx2uITjudbYXjSDiv2PxzvyqMqY8fhnwUlzhODCK2x4qBVQb%2FoZacSh7g%2FKGCVcwwaSNiAzP1%2FimvWUKsv2%2FEuqJ1hhCU%2F6HxmztL5FZQW6onCJusoqLLGR1dyjLBNk1PHTXnm0S98vL2EVcVcL4MLVwscBZqeWRlDjLhdKJ%2B1Nah%2FYy6OyuWHM0FAi2LOBq9ynRwDG%2FPmlcZRWUwGYQpme3mJ%2FcEUU7TIZZ1%2FDYN7EidtDz7FWd85yw%3D%3D","environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"trivia-smash\",\"storageBucket\":\"trivia-smash.appspot.com\"}","GCLOUD_PROJECT":"trivia-smash","EVENTARC_CLOUD_EVENT_SOURCE":"projects/trivia-smash/locations/us-central1/functions/decrementTimer"},"runtime":"nodejs18","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"dockerRegistry":"ARTIFACT_REGISTRY"},"versionId":"1","updateTime":"2024-02-28T18:41:05Z","buildId":"f51850bc-28fc-4763-8190-bcbbe63b9f8c","buildName":"projects/1006261280011/locations/us-central1/builds/f51850bc-28fc-4763-8190-bcbbe63b9f8c"}}
+[debug] [2024-02-28T18:41:40.937Z] [create-default-us-central1-decrementTimer] Retrying task index 0
+[debug] [2024-02-28T18:41:40.938Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/operations/dHJpdmlhLXNtYXNoL3VzLWNlbnRyYWwxL2RlY3JlbWVudFRpbWVyL19hZGFqRUItMzBn [none]
+[debug] [2024-02-28T18:41:41.101Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/operations/dHJpdmlhLXNtYXNoL3VzLWNlbnRyYWwxL2RlY3JlbWVudFRpbWVyL19hZGFqRUItMzBn 200
+[debug] [2024-02-28T18:41:41.101Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/operations/dHJpdmlhLXNtYXNoL3VzLWNlbnRyYWwxL2RlY3JlbWVudFRpbWVyL19hZGFqRUItMzBn {"name":"operations/dHJpdmlhLXNtYXNoL3VzLWNlbnRyYWwxL2RlY3JlbWVudFRpbWVyL19hZGFqRUItMzBn","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v1.OperationMetadataV1","target":"projects/trivia-smash/locations/us-central1/functions/decrementTimer","type":"CREATE_FUNCTION","request":{"@type":"type.googleapis.com/google.cloud.functions.v1.CloudFunction","name":"projects/trivia-smash/locations/us-central1/functions/decrementTimer","eventTrigger":{"eventType":"google.pubsub.topic.publish","resource":"projects/trivia-smash/topics/firebase-schedule-decrementTimer-us-central1"},"entryPoint":"decrementTimer","labels":{"deployment-tool":"cli-firebase","deployment-scheduled":"true","firebase-functions-hash":"9d72ce5dbfd3873faac0833aa82848de701da24b"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-323836782972.us-central1.cloudfunctions.appspot.com/39360e8c-e526-42df-8151-cb9e8ce0ab54.zip?GoogleAccessId=service-1006261280011@gcf-admin-robot.iam.gserviceaccount.com&Expires=1709147464&Signature=JcHGPLaxaME3FHvxZjpkEiePm95D8a7cYf4DnrWs90NjncXzZa0Xlo3DWDOzHeEduAy6weIQkzwhqhqg45GkhlCRaEpgcXwx2uITjudbYXjSDiv2PxzvyqMqY8fhnwUlzhODCK2x4qBVQb%2FoZacSh7g%2FKGCVcwwaSNiAzP1%2FimvWUKsv2%2FEuqJ1hhCU%2F6HxmztL5FZQW6onCJusoqLLGR1dyjLBNk1PHTXnm0S98vL2EVcVcL4MLVwscBZqeWRlDjLhdKJ%2B1Nah%2FYy6OyuWHM0FAi2LOBq9ynRwDG%2FPmlcZRWUwGYQpme3mJ%2FcEUU7TIZZ1%2FDYN7EidtDz7FWd85yw%3D%3D","environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"trivia-smash\",\"storageBucket\":\"trivia-smash.appspot.com\"}","GCLOUD_PROJECT":"trivia-smash","EVENTARC_CLOUD_EVENT_SOURCE":"projects/trivia-smash/locations/us-central1/functions/decrementTimer"},"runtime":"nodejs18","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"dockerRegistry":"ARTIFACT_REGISTRY"},"versionId":"1","updateTime":"2024-02-28T18:41:40Z","buildId":"f51850bc-28fc-4763-8190-bcbbe63b9f8c","buildName":"projects/1006261280011/locations/us-central1/builds/f51850bc-28fc-4763-8190-bcbbe63b9f8c"},"done":true,"error":{"code":3,"message":"Build failed: npm ERR! code EUSAGE\nnpm ERR! \nnpm ERR! `npm ci` can only install packages when your package.json and package-lock.json or npm-shrinkwrap.json are in sync. Please update your lock file with `npm install` before continuing.\nnpm ERR! \nnpm ERR! Missing: @babel/plugin-proposal-private-property-in-object@7.21.11 from lock file\nnpm ERR! Missing: @babel/helper-annotate-as-pure@7.22.5 from lock file\nnpm ERR! Missing: @babel/helper-create-class-features-plugin@7.24.0 from lock file\nnpm ERR! Missing: @babel/plugin-syntax-private-property-in-object@7.14.5 from lock file\nnpm ERR! Missing: @babel/helper-member-expression-to-functions@7.23.0 from lock file\nnpm ERR! Missing: @babel/helper-optimise-call-expression@7.22.5 from lock file\nnpm ERR! Missing: @babel/helper-replace-supers@7.22.20 from lock file\nnpm ERR! Missing: @babel/helper-skip-transparent-expression-wrappers@7.22.5 from lock file\nnpm ERR! \nnpm ERR! Clean install a project\nnpm ERR! \nnpm ERR! Usage:\nnpm ERR! npm ci\nnpm ERR! \nnpm ERR! Options:\nnpm ERR! [--install-strategy <hoisted|nested|shallow|linked>] [--legacy-bundling]\nnpm ERR! [--global-style] [--omit <dev|optional|peer> [--omit <dev|optional|peer> ...]]\nnpm ERR! [--include <prod|dev|optional|peer> [--include <prod|dev|optional|peer> ...]]\nnpm ERR! [--strict-peer-deps] [--foreground-scripts] [--ignore-scripts] [--no-audit]\nnpm ERR! [--no-bin-links] [--no-fund] [--dry-run]\nnpm ERR! [-w|--workspace <workspace-name> [-w|--workspace <workspace-name> ...]]\nnpm ERR! [-ws|--workspaces] [--include-workspace-root] [--install-links]\nnpm ERR! \nnpm ERR! aliases: clean-install, ic, install-clean, isntall-clean\nnpm ERR! \nnpm ERR! Run \"npm help ci\" for more info\n\nnpm ERR! A complete log of this run can be found in: /www-data-home/.npm/_logs/2024-02-28T18_41_33_575Z-debug-0.log; Error ID: beaf8772"}}
+[debug] [2024-02-28T18:41:41.101Z] Got source token undefined for region us-central1
+[error] Build failed: npm ERR! code EUSAGE
+npm ERR! 
+npm ERR! `npm ci` can only install packages when your package.json and package-lock.json or npm-shrinkwrap.json are in sync. Please update your lock file with `npm install` before continuing.
+npm ERR! 
+npm ERR! Missing: @babel/plugin-proposal-private-property-in-object@7.21.11 from lock file
+npm ERR! Missing: @babel/helper-annotate-as-pure@7.22.5 from lock file
+npm ERR! Missing: @babel/helper-create-class-features-plugin@7.24.0 from lock file
+npm ERR! Missing: @babel/plugin-syntax-private-property-in-object@7.14.5 from lock file
+npm ERR! Missing: @babel/helper-member-expression-to-functions@7.23.0 from lock file
+npm ERR! Missing: @babel/helper-optimise-call-expression@7.22.5 from lock file
+npm ERR! Missing: @babel/helper-replace-supers@7.22.20 from lock file
+npm ERR! Missing: @babel/helper-skip-transparent-expression-wrappers@7.22.5 from lock file
+npm ERR! 
+npm ERR! Clean install a project
+npm ERR! 
+npm ERR! Usage:
+npm ERR! npm ci
+npm ERR! 
+npm ERR! Options:
+npm ERR! [--install-strategy <hoisted|nested|shallow|linked>] [--legacy-bundling]
+npm ERR! [--global-style] [--omit <dev|optional|peer> [--omit <dev|optional|peer> ...]]
+npm ERR! [--include <prod|dev|optional|peer> [--include <prod|dev|optional|peer> ...]]
+npm ERR! [--strict-peer-deps] [--foreground-scripts] [--ignore-scripts] [--no-audit]
+npm ERR! [--no-bin-links] [--no-fund] [--dry-run]
+npm ERR! [-w|--workspace <workspace-name> [-w|--workspace <workspace-name> ...]]
+npm ERR! [-ws|--workspaces] [--include-workspace-root] [--install-links]
+npm ERR! 
+npm ERR! aliases: clean-install, ic, install-clean, isntall-clean
+npm ERR! 
+npm ERR! Run "npm help ci" for more info
+
+npm ERR! A complete log of this run can be found in: /www-data-home/.npm/_logs/2024-02-28T18_41_33_575Z-debug-0.log; Error ID: beaf8772
+[debug] [2024-02-28T18:41:41.105Z] Total Function Deployment time: 37271
+[debug] [2024-02-28T18:41:41.105Z] 1 Functions Deployed
+[debug] [2024-02-28T18:41:41.105Z] 1 Functions Errored
+[debug] [2024-02-28T18:41:41.105Z] 0 Function Deployments Aborted
+[debug] [2024-02-28T18:41:41.105Z] Average Function Deployment time: 37270
+[info] 
+[info] Functions deploy had errors with the following functions:
+	decrementTimer(us-central1)
+[info] i  functions: cleaning up build files... 
+[debug] [2024-02-28T18:41:41.107Z] >>> [apiv2][query] DELETE https://artifactregistry.googleapis.com/v1beta2/projects/trivia-smash/locations/us-central1/repositories/gcf-artifacts/packages/decrement_timer [none]
+[debug] [2024-02-28T18:41:41.108Z] >>> [apiv2][query] GET https://us.gcr.io/v2/trivia-smash/gcf/us-central1/tags/list [none]
+[debug] [2024-02-28T18:41:41.347Z] <<< [apiv2][status] DELETE https://artifactregistry.googleapis.com/v1beta2/projects/trivia-smash/locations/us-central1/repositories/gcf-artifacts/packages/decrement_timer 404
+[debug] [2024-02-28T18:41:41.347Z] <<< [apiv2][body] DELETE https://artifactregistry.googleapis.com/v1beta2/projects/trivia-smash/locations/us-central1/repositories/gcf-artifacts/packages/decrement_timer {"error":{"code":404,"message":"Package \"projects/trivia-smash/locations/us-central1/repositories/gcf-artifacts/packages/decrement_timer\" was not found.","status":"NOT_FOUND"}}
+[debug] [2024-02-28T18:41:41.446Z] <<< [apiv2][status] GET https://us.gcr.io/v2/trivia-smash/gcf/us-central1/tags/list 404
+[debug] [2024-02-28T18:41:41.446Z] <<< [apiv2][body] GET https://us.gcr.io/v2/trivia-smash/gcf/us-central1/tags/list {"errors":[{"code":"NAME_UNKNOWN","message":"Repository \"us.gcr.io\" not found"}]}
+[debug] [2024-02-28T18:41:41.446Z] Failed docker command with error  HTTP Error: 404, Not Found {"name":"FirebaseError","children":[],"context":{"body":{"errors":[{"code":"NAME_UNKNOWN","message":"Repository \"us.gcr.io\" not found"}],"error":{"message":"Not Found"}},"response":{"statusCode":404}},"exit":1,"message":"HTTP Error: 404, Not Found","status":404}
+[debug] [2024-02-28T18:41:41.454Z] >>> [apiv2][query] GET https://us.gcr.io/v2/trivia-smash/gcf/us-central1/tags/list [none]
+[debug] [2024-02-28T18:41:41.549Z] <<< [apiv2][status] GET https://us.gcr.io/v2/trivia-smash/gcf/us-central1/tags/list 404
+[debug] [2024-02-28T18:41:41.549Z] <<< [apiv2][body] GET https://us.gcr.io/v2/trivia-smash/gcf/us-central1/tags/list {"errors":[{"code":"NAME_UNKNOWN","message":"Repository \"us.gcr.io\" not found"}]}
+[debug] [2024-02-28T18:41:41.549Z] Failed docker command with error  HTTP Error: 404, Not Found {"name":"FirebaseError","children":[],"context":{"body":{"errors":[{"code":"NAME_UNKNOWN","message":"Repository \"us.gcr.io\" not found"}],"error":{"message":"Not Found"}},"response":{"statusCode":404}},"exit":1,"message":"HTTP Error: 404, Not Found","status":404}
+[debug] [2024-02-28T18:41:41.656Z] >>> [apiv2][query] GET https://us.gcr.io/v2/trivia-smash/gcf/us-central1/tags/list [none]
+[debug] [2024-02-28T18:41:41.739Z] <<< [apiv2][status] GET https://us.gcr.io/v2/trivia-smash/gcf/us-central1/tags/list 404
+[debug] [2024-02-28T18:41:41.739Z] <<< [apiv2][body] GET https://us.gcr.io/v2/trivia-smash/gcf/us-central1/tags/list {"errors":[{"code":"NAME_UNKNOWN","message":"Repository \"us.gcr.io\" not found"}]}
+[debug] [2024-02-28T18:41:41.739Z] Failed docker command with error  HTTP Error: 404, Not Found {"name":"FirebaseError","children":[],"context":{"body":{"errors":[{"code":"NAME_UNKNOWN","message":"Repository \"us.gcr.io\" not found"}],"error":{"message":"Not Found"}},"response":{"statusCode":404}},"exit":1,"message":"HTTP Error: 404, Not Found","status":404}
+[warn] !  functions: Unhandled error cleaning up build images. This could result in a small monthly bill if not corrected. You can attempt to delete these images by redeploying or you can delete them manually at https://console.cloud.google.com/gcr/images/trivia-smash/us/gcf 
+[debug] [2024-02-28T18:41:41.740Z] Functions deploy failed.
+[debug] [2024-02-28T18:41:41.740Z] {
+  "endpoint": {
+    "id": "decrementTimer",
+    "project": "trivia-smash",
+    "region": "us-central1",
+    "entryPoint": "decrementTimer",
+    "platform": "gcfv1",
+    "runtime": "nodejs18",
+    "scheduleTrigger": {
+      "schedule": "* * * * *",
+      "timeZone": null,
+      "retryConfig": {
+        "maxBackoffSeconds": null,
+        "minBackoffSeconds": null,
+        "maxRetrySeconds": null,
+        "retryCount": null,
+        "maxDoublings": null
+      }
+    },
+    "labels": {
+      "deployment-tool": "cli-firebase"
+    },
+    "ingressSettings": null,
+    "availableMemoryMb": null,
+    "serviceAccount": null,
+    "timeoutSeconds": null,
+    "maxInstances": null,
+    "minInstances": null,
+    "vpc": null,
+    "environmentVariables": {
+      "FIREBASE_CONFIG": "{\"projectId\":\"trivia-smash\",\"storageBucket\":\"trivia-smash.appspot.com\"}",
+      "GCLOUD_PROJECT": "trivia-smash",
+      "EVENTARC_CLOUD_EVENT_SOURCE": "projects/trivia-smash/locations/us-central1/functions/decrementTimer"
+    },
+    "codebase": "default",
+    "targetedByOnly": false,
+    "hash": "9d72ce5dbfd3873faac0833aa82848de701da24b"
+  },
+  "op": "create",
+  "original": {
+    "name": "FirebaseError",
+    "children": [],
+    "exit": 1,
+    "message": "Build failed: npm ERR! code EUSAGE\nnpm ERR! \nnpm ERR! `npm ci` can only install packages when your package.json and package-lock.json or npm-shrinkwrap.json are in sync. Please update your lock file with `npm install` before continuing.\nnpm ERR! \nnpm ERR! Missing: @babel/plugin-proposal-private-property-in-object@7.21.11 from lock file\nnpm ERR! Missing: @babel/helper-annotate-as-pure@7.22.5 from lock file\nnpm ERR! Missing: @babel/helper-create-class-features-plugin@7.24.0 from lock file\nnpm ERR! Missing: @babel/plugin-syntax-private-property-in-object@7.14.5 from lock file\nnpm ERR! Missing: @babel/helper-member-expression-to-functions@7.23.0 from lock file\nnpm ERR! Missing: @babel/helper-optimise-call-expression@7.22.5 from lock file\nnpm ERR! Missing: @babel/helper-replace-supers@7.22.20 from lock file\nnpm ERR! Missing: @babel/helper-skip-transparent-expression-wrappers@7.22.5 from lock file\nnpm ERR! \nnpm ERR! Clean install a project\nnpm ERR! \nnpm ERR! Usage:\nnpm ERR! npm ci\nnpm ERR! \nnpm ERR! Options:\nnpm ERR! [--install-strategy <hoisted|nested|shallow|linked>] [--legacy-bundling]\nnpm ERR! [--global-style] [--omit <dev|optional|peer> [--omit <dev|optional|peer> ...]]\nnpm ERR! [--include <prod|dev|optional|peer> [--include <prod|dev|optional|peer> ...]]\nnpm ERR! [--strict-peer-deps] [--foreground-scripts] [--ignore-scripts] [--no-audit]\nnpm ERR! [--no-bin-links] [--no-fund] [--dry-run]\nnpm ERR! [-w|--workspace <workspace-name> [-w|--workspace <workspace-name> ...]]\nnpm ERR! [-ws|--workspaces] [--include-workspace-root] [--install-links]\nnpm ERR! \nnpm ERR! aliases: clean-install, ic, install-clean, isntall-clean\nnpm ERR! \nnpm ERR! Run \"npm help ci\" for more info\n\nnpm ERR! A complete log of this run can be found in: /www-data-home/.npm/_logs/2024-02-28T18_41_33_575Z-debug-0.log; Error ID: beaf8772",
+    "status": 3,
+    "code": 3
+  }
+}
+[debug] [2024-02-28T18:41:41.741Z] Error: Failed to create function decrementTimer in region us-central1
+    at C:\Users\odagh\AppData\Roaming\nvm\v20.11.0\node_modules\firebase-tools\lib\deploy\functions\release\fabricator.js:51:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Fabricator.createV1Function (C:\Users\odagh\AppData\Roaming\nvm\v20.11.0\node_modules\firebase-tools\lib\deploy\functions\release\fabricator.js:181:32)
+    at async Fabricator.createEndpoint (C:\Users\odagh\AppData\Roaming\nvm\v20.11.0\node_modules\firebase-tools\lib\deploy\functions\release\fabricator.js:133:13)
+    at async handle (C:\Users\odagh\AppData\Roaming\nvm\v20.11.0\node_modules\firebase-tools\lib\deploy\functions\release\fabricator.js:88:17)
+[error] 
+[error] Error: There was an error deploying functions

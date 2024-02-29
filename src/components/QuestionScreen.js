@@ -1,109 +1,113 @@
 import React, { useState, useEffect } from "react";
 import { db } from "../firebase-config";
-import { doc, onSnapshot, updateDoc } from "firebase/firestore";
+import { doc, onSnapshot, updateDoc, getDoc } from "firebase/firestore";
 import questionsData from "../Models/questionsData";
 
 function QuestionScreen({ sessionID, userID }) {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
-  const [timer, setTimer] = useState(10); // Initial timer value will be updated from Firestore
+  const [timer, setTimer] = useState(10);
   const [playerScore, setPlayerScore] = useState(0);
   const [opponentScore, setOpponentScore] = useState(0);
   const [opponentName, setOpponentName] = useState("");
-  const [questions, setQuestions] = useState([]);
+  const [questions, setQuestions] = useState(questionsData["geography"]); 
+  const [gameEnded, setGameEnded] = useState(false);
+  const [showRound, setShowRound] = useState(true);
+
+  const sessionRef = sessionID ? doc(db, "game_sessions", sessionID) : null;
 
   useEffect(() => {
-    if (!sessionID) {
-      console.error("sessionID is undefined");
-      return;
-    }
-
-    const sessionRef = doc(db, "game_sessions", sessionID);
+    if (!sessionRef) return;
 
     const unsub = onSnapshot(sessionRef, (doc) => {
       const data = doc.data();
+      if (!data) return;
 
-      if (!data) {
-        console.error("Document is undefined or does not exist.");
-        return;
-      }
-
-      if (data.timer !== undefined) {
-        setTimer(data.timer); // Update the timer from Firestore
-      }
-
-      if (!data.players || !data.players[userID]) {
-        console.error("Invalid data structure received from Firestore", data);
-        return;
-      }
-
-      setPlayerScore(data.players[userID].score || 0);
+      setPlayerScore(data.players[userID]?.score || 0);
       setQuestions(questionsData[data.topic] || []);
+      setCurrentQuestionIndex(data.currentQuestionIndex || 0);
+      setGameEnded(data.gameEnded || false);
 
-      const opponentID = Object.keys(data.players).find((id) => id !== userID);
+      const opponentID = Object.keys(data.players).find(id => id !== userID);
       if (opponentID) {
-        setOpponentScore(data.players[opponentID].score || 0);
-        setOpponentName(data.players[opponentID].name || "Unknown");
+        setOpponentScore(data.players[opponentID]?.score || 0);
+        setOpponentName(data.players[opponentID]?.name || "Unknown");
       }
 
-      setCurrentQuestionIndex(
-        data.currentQuestionIndex >= 0 ? data.currentQuestionIndex : 0
-      );
+      if (data.players[userID]?.answered && data.players[opponentID]?.answered) {
+        setShowRound(true); // Show round transition
+        setSelectedAnswer(null); // Reset answer for the next question
+      }
     });
 
     return () => unsub();
-  }, [sessionID, userID]);
+  }, [sessionRef, userID]);
 
   useEffect(() => {
-    if (timer === 0 || selectedAnswer) {
-      handleAnswer();
+    let interval = null;
+    if (showRound) {
+      setTimeout(() => setShowRound(false), 2000); // Show round for 2 seconds
+    } else if (timer > 0 && !gameEnded) {
+      interval = setInterval(() => setTimer(prevTimer => prevTimer - 1), 1000);
+    } else if (timer === 0 && !gameEnded) {
+      setTimer(10); // Reset timer for next question or round transition
     }
-  }, [timer, selectedAnswer]);
+    return () => clearInterval(interval);
+  }, [timer, gameEnded, showRound]);
 
-  const handleAnswer = async () => {
-    if (!sessionID) {
-      console.error("sessionID is undefined");
-      return;
-    }
+  const handleAnswer = async (answer) => {
+    if (selectedAnswer || !sessionRef) return;
 
-    const sessionRef = doc(db, "game_sessions", sessionID);
-
-    let newScore = playerScore;
-    if (
-      selectedAnswer &&
-      questions[currentQuestionIndex] &&
-      selectedAnswer === questions[currentQuestionIndex].correctAnswer
-    ) {
-      newScore += 10; // Increment score, for example
-    }
+    setSelectedAnswer(answer);
+    const correctAnswer = questions[currentQuestionIndex]?.correctAnswer;
+    let newScore = playerScore + (answer === correctAnswer ? 10 : 0);
 
     await updateDoc(sessionRef, {
       [`players.${userID}.score`]: newScore,
       [`players.${userID}.answered`]: true,
     });
 
-    setSelectedAnswer(null);
-    // Do not reset the timer here; it should only be controlled by the backend
+    const sessionSnapshot = await getDoc(sessionRef);
+    const sessionData = sessionSnapshot.data();
+    const opponentID = Object.keys(sessionData.players).find(id => id !== userID);
+
+    if (sessionData.players[userID].answered && sessionData.players[opponentID].answered) {
+      if (currentQuestionIndex < questions.length - 1) {
+        await updateDoc(sessionRef, {
+          currentQuestionIndex: currentQuestionIndex + 1,
+          [`players.${userID}.answered`]: false,
+          [`players.${opponentID}.answered`]: false,
+        });
+        setTimer(10); // Reset timer for the next question
+      } else {
+        await updateDoc(sessionRef, { gameEnded: true });
+      }
+    }
   };
+
+  if (gameEnded) {
+    return <div>Game Over. Your final score is: {playerScore}</div>;
+  }
 
   return (
     <div>
-      <h2>
-        {questions[currentQuestionIndex]?.title || "Waiting for question..."}
-      </h2>
-      <div>{timer} seconds left</div>
-      <div>
-        {questions.length > 0 &&
-          questions[currentQuestionIndex]?.choices.map((choice, index) => (
-            <button key={index} onClick={() => setSelectedAnswer(choice)}>
-              {choice}
-            </button>
-          ))}
-      </div>
-      <div>Your score: {playerScore}</div>
-      <div>
-        Opponent ({opponentName}) score: {opponentScore}
-      </div>
+      {showRound ? (
+        <div>Round {currentQuestionIndex + 1}</div>
+      ) : (
+        <>
+          <h2>{questions[currentQuestionIndex]?.title || "Waiting for question..."}</h2>
+          <div>{timer} seconds left</div>
+          <div>
+            {questions[currentQuestionIndex]?.choices.map((choice, index) => (
+              <button key={index} onClick={() => handleAnswer(choice)} disabled={!!selectedAnswer}>
+                {choice}
+              </button>
+            ))}
+          </div>
+          <div>Your score: {playerScore}</div>
+          <div>Opponent ({opponentName}) score: {opponentScore}</div>
+        </>
+      )}
     </div>
   );
 }
