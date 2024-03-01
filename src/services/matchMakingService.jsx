@@ -1,4 +1,4 @@
-import questionsData from "../Models/questionsData";
+import questionsData from "../models/questionsData";
 import { db } from "../firebase-config";
 import {
   collection,
@@ -85,6 +85,5 @@ async function createGameSession(matchedPlayers, topic) {
     }
   }
 }
-
 
 export { matchPlayers };
