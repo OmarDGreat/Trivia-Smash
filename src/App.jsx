@@ -5,6 +5,8 @@ import QuestionScreen from "./pages/QuestionScreen";
 import { auth, db } from "./firebase-config";
 import { collection, query, where, onSnapshot } from "firebase/firestore";
 import "bootstrap/dist/css/bootstrap.min.css";
+import QueueLoadingScreen from "./pages/QueueLoadingScreen";
+
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -45,21 +47,17 @@ function App() {
 
   return (
     <div>
-      {!topic && (
-        <HomeScreen
-          onSelectTopic={handleSelectTopic}
-          isAuthenticated={!!currentUser}
-        />
-      )}
-      {topic && sessionID && (
-        <QuestionScreen
-          topic={topic}
-          sessionID={sessionID}
-          userID={currentUser?.uid}
-        />
+      {!topic ? (
+        <HomeScreen onSelectTopic={handleSelectTopic} isAuthenticated={currentUser} />
+      ) : !sessionID ? (
+        <QueueLoadingScreen/>
+      ) : (
+        <QuestionScreen topic={topic} sessionID={sessionID} userID={currentUser?.uid} />
       )}
     </div>
   );
+  
 }
+
 
 export default App;
