@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
-import HomeScreen from "./components/pages/HomeScreen";
-import QuestionScreen from "./components/pages/QuestionScreen";
+import HomeScreen from "./pages/HomeScreen";
+import QuestionScreen from "./pages/QuestionScreen";
 import { auth, db } from "./firebase-config";
 import { collection, query, where, onSnapshot } from "firebase/firestore";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -20,7 +21,6 @@ function App() {
   useEffect(() => {
     if (!currentUser || !topic) return;
 
-    // Start listening for session updates when a topic is selected and the user is authenticated
     const q = query(
       collection(db, "queue"),
       where("userId", "==", currentUser.uid),
@@ -31,18 +31,16 @@ function App() {
       querySnapshot.forEach((doc) => {
         const data = doc.data();
         if (data.gameSessionId) {
-          // Update sessionID when a match is found and a session is created
           setSessionID(data.gameSessionId);
         }
       });
     });
 
-    return () => unsubscribe(); // Clean up the listener
+    return () => unsubscribe();
   }, [currentUser, topic]);
 
   function handleSelectTopic(selectedTopic) {
     setTopic(selectedTopic);
-    // Initiate the matchmaking process here if necessary
   }
 
   return (
